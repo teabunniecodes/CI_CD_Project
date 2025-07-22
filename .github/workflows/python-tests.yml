@@ -1,0 +1,40 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+    push:
+        branches: [ main, develop ] # Triggers on push to main or develop branches
+    pull_request:
+        branches: [ main, develop ] # Triggers on pull requests targeting main or develop
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"] # Test across different Python versions
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5 # Action to set up a specific Python version
+        with:
+            python-version: ${{ matrix.python-version }} # Uses the Python version from the matrix
+
+      - name: Install dependencies
+        # In this specific case, my_program.py and unittest don't have external dependencies.
+        # However, it's good practice to include this step for future expansion.
+        # If you had a requirements.txt file, you would install it here:
+        # run: pip install -r requirements.txt
+        run: |
+            python -m pip install --upgrade pip # Ensure pip is up-to-date
+            # If you had a requirements.txt file, you would uncomment the line below:
+            # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            echo "No additional Python dependencies to install for this example."
+      - name: Run unit tests
+        run: |
+            python -m unittest discover -s . -p 'test_*.py'
+      - run: echo "🍏 This job's status is ${{ job.status }}."
