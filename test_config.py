@@ -50,10 +50,9 @@ class TestConfig(unittest.TestCase):
             
             # Get the value that was "printed" to our mock_stdout
             captured_output = mock_stdout.getvalue()
-            
             self.assertEqual(captured_output, expected_output,
                              f"Expected to print '{expected_output}', but got '{captured_output}'.")
-            print(f"Successfully verified that 'config.hello()' print '{expected_output.strip()}'.")
+        print(f"Successfully verified that 'config.hello()' prints '{expected_output.strip()}'.")
             
 if __name__ == '__main__':
     unittest.main(verbosity=2)
