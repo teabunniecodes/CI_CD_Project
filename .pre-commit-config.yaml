@@ -1,0 +1,10 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: run-unit-tests
+        name: Run Unit Tests
+        entry: python -m unittest discover -s . -p 'test_*.py'
+        language: system
+        pass_filenames: false # We want unittest to discover all tests, not just those related to changed files
+        always_run: true # Always run tests on commit, even if no files changed (optional, but good for tests)
