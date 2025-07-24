@@ -7,6 +7,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # permissions:
+    #   contents: read
+    #   secrets: read # This job needs to read secrets (e.g., SSH key)
 
     steps:
     - name: Checkout code
@@ -20,6 +23,5 @@ jobs:
     - name: Add EC2 host to known_hosts
       run: |
         mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
         chmod 600 ~/.ssh/known_hosts
         echo "This did something :D"
